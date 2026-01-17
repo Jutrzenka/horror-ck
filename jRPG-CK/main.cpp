@@ -1,30 +1,26 @@
 ﻿#include "raylib.h"
-
-// Ten plik to tylko punkt wejścia - tu nie powinno być logiki gry, 
-// jedynie inicjalizacja pętli.
+#include "Menu.h"
 
 int main() {
-    // 1. Konfiguracja okna (część techniczna)
-    InitWindow(800, 600, "JRPG Portable Test");
+    // Inicjalizacja okna Raylib
+    InitWindow(800, 600, "Haunted House Game");
     SetTargetFPS(60);
 
-    // 2. Główna pętla
+    // Utworzenie i wywołanie menu
+    Menu menu;
+    menu.Show();
+
+    // Główna logika gry w przyszłości...
     while (!WindowShouldClose()) {
-
-        // Tutaj w przyszłości będzie: game.update();
-
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(BLACK);
 
-        // Tutaj w przyszłości będzie: game.draw();
-        DrawText("Projekt przenosny dziala!", 190, 200, 20, LIGHTGRAY);
-        DrawText("Mozesz skopiowac caly folder na pendrive.", 150, 240, 20, DARKGRAY);
+        DrawText("Game will start...", 200, 300, 20, WHITE);
 
         EndDrawing();
     }
 
-    // 3. Sprzątanie
+    // Sprzątanie
     CloseWindow();
-
     return 0;
 }
