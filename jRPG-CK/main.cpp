@@ -1,26 +1,46 @@
 ﻿#include "raylib.h"
 #include "Menu.h"
+#include "GameMap.h"
+#include "Player.h"
 
 int main() {
-    // Inicjalizacja okna Raylib
-    InitWindow(800, 600, "Haunted House Game");
+    const int screenWidth = 800;
+    const int screenHeight = 600;
+    InitWindow(screenWidth, screenHeight, "Haunted House: Procedural Game");
     SetTargetFPS(60);
 
-    // Utworzenie i wywołanie menu
+    // Wyświetlenie menu
     Menu menu;
     menu.Show();
 
-    // Główna logika gry w przyszłości...
+    // Generowanie planszy
+    GameMap gameMap(40, 30); // Proceduralna plansza 40x30
+    gameMap.Generate();
+
+    // Inicjalizacja gracza
+    Player player(&gameMap, { 10.f, 10.f }); // Startowa pozycja gracza
+
+    // Główna pętla gry
     while (!WindowShouldClose()) {
+        float deltaTime = GetFrameTime();
+
+        // Aktualizacja gracza
+        player.Update(deltaTime);
+
+        // Logika rysowania
         BeginDrawing();
         ClearBackground(BLACK);
 
-        DrawText("Game will start...", 200, 300, 20, WHITE);
+        // Rysowanie mapy
+        gameMap.Draw();
+
+        // Rysowanie gracza
+        Vector2 playerPos = player.GetPosition();
+        DrawCircle((int)(playerPos.x * 20), (int)(playerPos.y * 20), 10, RED); // Rozmiar gracza
 
         EndDrawing();
     }
 
-    // Sprzątanie
     CloseWindow();
     return 0;
 }
